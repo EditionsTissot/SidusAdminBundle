@@ -1,5 +1,5 @@
 {
-    "name": "sidus/admin-bundle",
+    "name": "cleverage/admin-bundle",
     "description": "Simple and extendable action-based admin management with built-in routing generation",
     "keywords": [
         "admin",
@@ -18,7 +18,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Sidus\\AdminBundle\\": ""
+            "Sidus\\AdminBundle\\": "src/"
         }
     },
     "require": {
@@ -32,9 +32,8 @@
         "symfony/form": "~3.0|~4.0",
         "symfony/translation": "~3.0|~4.0",
         "symfony/twig-bundle": "~3.0|~4.0",
-
-        "sidus/datagrid-bundle": "3.0.*|dev-v3.0-dev",
-        "sidus/base-bundle": "~1.0"
+        "cleverage/datagrid-bundle": "3.0.*|dev-v3.0-dev",
+        "sidus/base-bundle": "^1.0"
     },
     "suggest": {
         "cleverage/permission-bundle": "Configure entities permissions easily"
