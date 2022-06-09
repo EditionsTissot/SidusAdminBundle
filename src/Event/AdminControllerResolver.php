@@ -17,6 +17,7 @@ use Sidus\AdminBundle\Admin\Admin;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use UnexpectedValueException;
 use function is_array;
 
@@ -36,10 +37,7 @@ class AdminControllerResolver
         $this->controllerResolver = $controllerResolver;
     }
 
-    /**
-     * @param GetResponseEvent $event
-     */
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
         if ($request->attributes->has('_controller')) {

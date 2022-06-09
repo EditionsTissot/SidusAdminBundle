@@ -43,8 +43,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root($this->root);
+        $treeBuilder = new TreeBuilder($this->root);
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
@@ -64,8 +64,8 @@ class Configuration implements ConfigurationInterface
      */
     protected function getAdminConfigTreeBuilder(): NodeDefinition
     {
-        $builder = new TreeBuilder();
-        $node = $builder->root('configurations');
+        $builder = new TreeBuilder('configurations');
+        $node = $builder->getRootNode();
         $adminDefinition = $node
             ->useAttributeAsKey('code')
             ->prototype('array')

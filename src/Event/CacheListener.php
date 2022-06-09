@@ -12,6 +12,7 @@ namespace Sidus\AdminBundle\Event;
 
 use Sidus\AdminBundle\Admin\Admin;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use UnexpectedValueException;
 
@@ -22,10 +23,7 @@ use UnexpectedValueException;
  */
 class CacheListener
 {
-    /**
-     * @param FilterResponseEvent $event
-     */
-    public function onKernelResponse(FilterResponseEvent $event): void
+    public function onKernelResponse(ResponseEvent $event): void
     {
         if (!$event->getRequest()->attributes->has('_admin')) {
             return;

@@ -10,7 +10,7 @@
 
 namespace Sidus\AdminBundle\Doctrine;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
@@ -19,7 +19,7 @@ use Sidus\AdminBundle\Admin\Action;
 use Sidus\BaseBundle\Translator\TranslatableTrait;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Provides a simple way to access Doctrine utilities from a controller or an action

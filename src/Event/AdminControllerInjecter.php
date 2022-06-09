@@ -13,6 +13,7 @@ namespace Sidus\AdminBundle\Event;
 use LogicException;
 use Sidus\AdminBundle\Action\ActionInjectableInterface;
 use Sidus\AdminBundle\Admin\Admin;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use UnexpectedValueException;
 use function is_array;
@@ -24,10 +25,7 @@ use function is_array;
  */
 class AdminControllerInjecter
 {
-    /**
-     * @param FilterControllerEvent $event
-     */
-    public function onKernelController(FilterControllerEvent $event): void
+    public function onKernelController(ControllerEvent $event): void
     {
         $controller = $event->getController();
         if (is_array($controller)) {

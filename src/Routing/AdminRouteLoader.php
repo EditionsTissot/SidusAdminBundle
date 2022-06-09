@@ -30,6 +30,7 @@ class AdminRouteLoader extends Loader
      */
     public function __construct(AdminRegistry $adminRegistry)
     {
+        parent::__construct();
         $this->adminRegistry = $adminRegistry;
     }
 
