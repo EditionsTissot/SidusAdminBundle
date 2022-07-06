@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -28,13 +30,8 @@ class DoctrineHelper
 {
     use TranslatableTrait;
 
-    /** @var ManagerRegistry */
     protected ManagerRegistry $doctrine;
 
-    /**
-     * @param ManagerRegistry     $doctrine
-     * @param TranslatorInterface $translator
-     */
     public function __construct(ManagerRegistry $doctrine, TranslatorInterface $translator)
     {
         $this->doctrine = $doctrine;
@@ -42,16 +39,13 @@ class DoctrineHelper
     }
 
     /**
-     * @param mixed $entity
-     *
      * @throws LogicException
-     *
-     * @return EntityManagerInterface
      */
     public function getManagerForEntity($entity): EntityManagerInterface
     {
         $class = ClassUtils::getClass($entity);
         $entityManager = $this->doctrine->getManagerForClass($class);
+
         if (!$entityManager instanceof EntityManagerInterface) {
             throw new InvalidArgumentException("No manager found for class {$class}");
         }
@@ -60,9 +54,7 @@ class DoctrineHelper
     }
 
     /**
-     * @param Action|null           $action
-     * @param mixed                 $entity
-     * @param SessionInterface|null $session
+     * @param Action|null $action
      */
     public function saveEntity(Action $action, $entity, SessionInterface $session = null): void
     {
@@ -73,11 +65,6 @@ class DoctrineHelper
         $this->addFlash($action, $session);
     }
 
-    /**
-     * @param Action                $action
-     * @param mixed                 $entity
-     * @param SessionInterface|null $session
-     */
     public function deleteEntity(Action $action, $entity, SessionInterface $session = null): void
     {
         $entityManager = $this->getManagerForEntity($entity);
@@ -87,10 +74,6 @@ class DoctrineHelper
         $this->addFlash($action, $session);
     }
 
-    /**
-     * @param Action                $action
-     * @param SessionInterface|null $session
-     */
     protected function addFlash(Action $action, SessionInterface $session = null): void
     {
         if ($action && $session instanceof Session) {
@@ -102,7 +85,7 @@ class DoctrineHelper
                         "admin.flash.{$action->getCode()}.success",
                     ],
                     [],
-                    ucfirst($action->getCode()).' success'
+                    ucfirst($action->getCode()) . ' success'
                 )
             );
         }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -19,10 +21,7 @@ use Twig\Template;
 interface TemplateResolverInterface
 {
     /**
-     * @param Action $action
      * @param string $templateType
-     *
-     * @return Template
      */
     public function getTemplate(Action $action, $templateType = 'html'): Template;
 }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -19,7 +21,6 @@ use UnexpectedValueException;
  */
 class Admin
 {
-    /** @var string */
     protected string $code;
 
     /** @var array */
@@ -49,10 +50,6 @@ class Admin
     /** @var Action|null */
     protected $currentAction;
 
-    /**
-     * @param string $code
-     * @param array  $adminConfiguration
-     */
     public function __construct(string $code, array $adminConfiguration)
     {
         $this->code = $code;
@@ -65,6 +62,7 @@ class Admin
         $this->options = $adminConfiguration['options'];
 
         $actionClass = $adminConfiguration['action_class'];
+
         foreach ((array) $adminConfiguration['actions'] as $actionCode => $actionConfiguration) {
             if (!isset($actionConfiguration['base_template'])) {
                 $actionConfiguration['base_template'] = $adminConfiguration['base_template'];
@@ -73,33 +71,21 @@ class Admin
         }
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @return array
-     */
     public function getControllerPattern(): array
     {
         return $this->controllerPattern;
     }
 
-    /**
-     * @return array
-     */
     public function getTemplatePattern(): array
     {
         return $this->templatePattern;
     }
 
-    /**
-     * @return string|null
-     */
     public function getPrefix(): ?string
     {
         return $this->prefix;
@@ -114,11 +100,7 @@ class Admin
     }
 
     /**
-     * @param string $code
-     *
      * @throws UnexpectedValueException
-     *
-     * @return Action
      */
     public function getAction(string $code): Action
     {
@@ -129,21 +111,11 @@ class Admin
         return $this->actions[$code];
     }
 
-    /**
-     * @param string $code
-     *
-     * @return bool
-     */
     public function hasAction(string $code): bool
     {
         return !empty($this->actions[$code]);
     }
 
-    /**
-     * @param string $route
-     *
-     * @return bool
-     */
     public function hasRoute(string $route): bool
     {
         foreach ($this->getActions() as $action) {
@@ -155,36 +127,21 @@ class Admin
         return false;
     }
 
-    /**
-     * @return string|null
-     */
     public function getEntity(): ?string
     {
         return $this->entity;
     }
 
-    /**
-     * @return null|string
-     */
     public function getFormType(): ?string
     {
         return $this->formType;
     }
 
-    /**
-     * @return array
-     */
     public function getOptions(): array
     {
         return $this->options;
     }
 
-    /**
-     * @param string $option
-     * @param mixed  $default
-     *
-     * @return mixed
-     */
     public function getOption(string $option, $default = null)
     {
         if (!$this->hasOption($option)) {
@@ -194,19 +151,11 @@ class Admin
         return $this->options[$option];
     }
 
-    /**
-     * @param string $option
-     *
-     * @return bool
-     */
     public function hasOption(string $option): bool
     {
         return array_key_exists($option, $this->options);
     }
 
-    /**
-     * @return Action|null
-     */
     public function getCurrentAction(): ?Action
     {
         return $this->currentAction;
@@ -225,9 +174,6 @@ class Admin
         $this->currentAction = $action;
     }
 
-    /**
-     * @return string|null
-     */
     public function getBaseTemplate(): ?string
     {
         return $this->baseTemplate;

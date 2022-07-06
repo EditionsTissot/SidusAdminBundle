@@ -43,5 +43,8 @@
     },
     "suggest": {
         "cleverage/permission-bundle": "Configure entities permissions easily"
+    },
+    "require-dev": {
+        "editions-tissot/php-cs-fixer-config": "^1.1"
     }
 }

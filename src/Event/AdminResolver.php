@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -23,12 +25,8 @@ use UnexpectedValueException;
  */
 class AdminResolver
 {
-    /** @var AdminRegistry */
     public AdminRegistry $adminRegistry;
 
-    /**
-     * @param AdminRegistry $adminRegistry
-     */
     public function __construct(AdminRegistry $adminRegistry)
     {
         $this->adminRegistry = $adminRegistry;
@@ -40,10 +38,12 @@ class AdminResolver
     public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
+
         if (!$request->attributes->has('_admin')) {
             return;
         }
         $admin = $request->attributes->get('_admin');
+
         if (!$admin instanceof Admin) {
             $admin = $this->adminRegistry->getAdmin($admin);
             $request->attributes->set('_admin', $admin);
@@ -54,6 +54,7 @@ class AdminResolver
             throw new UnexpectedValueException('Missing _action request attribute');
         }
         $action = $request->attributes->get('_action');
+
         if (!$action instanceof Action) {
             $action = $admin->getAction($action);
             $request->attributes->set('_action', $action);

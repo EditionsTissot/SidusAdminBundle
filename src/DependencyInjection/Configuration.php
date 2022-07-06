@@ -1,4 +1,6 @@
-<?php declare(strict_types=1); /** @noinspection NullPointerExceptionInspection */
+<?php
+
+declare(strict_types=1); /** @noinspection NullPointerExceptionInspection */
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -25,7 +27,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-    /** @var string */
     protected string $root;
 
     /**
@@ -36,9 +37,9 @@ class Configuration implements ConfigurationInterface
         $this->root = $root;
     }
 
-
     /**
      * {@inheritdoc}
+     *
      * @throws RuntimeException
      */
     public function getConfigTreeBuilder(): TreeBuilder
@@ -52,15 +53,14 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('admin_class')->defaultValue(Admin::class)->end()
             ->scalarNode('action_class')->defaultValue(Action::class)->end()
             ->append($this->getAdminConfigTreeBuilder())
-            ->end();
+            ->end()
+        ;
 
         return $treeBuilder;
     }
 
     /**
      * @throws RuntimeException
-     *
-     * @return NodeDefinition
      */
     protected function getAdminConfigTreeBuilder(): NodeDefinition
     {
@@ -70,20 +70,19 @@ class Configuration implements ConfigurationInterface
             ->useAttributeAsKey('code')
             ->prototype('array')
             ->performNoDeepMerging()
-            ->children();
+            ->children()
+        ;
 
         $this->appendAdminDefinition($adminDefinition);
 
         $adminDefinition->end()
             ->end()
-            ->end();
+            ->end()
+        ;
 
         return $node;
     }
 
-    /**
-     * @param NodeBuilder $adminDefinition
-     */
     protected function appendAdminDefinition(NodeBuilder $adminDefinition): void
     {
         $actionDefinition = $adminDefinition
@@ -100,18 +99,17 @@ class Configuration implements ConfigurationInterface
             ->useAttributeAsKey('code')
             ->prototype('array')
             ->performNoDeepMerging()
-            ->children();
+            ->children()
+        ;
 
         $this->appendActionDefinition($actionDefinition);
 
         $actionDefinition->end()
             ->end()
-            ->end();
+            ->end()
+        ;
     }
 
-    /**
-     * @param NodeBuilder $actionDefinition
-     */
     protected function appendActionDefinition(NodeBuilder $actionDefinition): void
     {
         $actionDefinition

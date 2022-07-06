@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -10,10 +12,10 @@
 
 namespace Sidus\AdminBundle\Entity;
 
+use function get_class;
 use Sidus\AdminBundle\Admin\Admin;
 use Sidus\AdminBundle\Configuration\AdminRegistry;
 use UnexpectedValueException;
-use function get_class;
 
 /**
  * Used to match an admin against a Doctrine entity, will return the first one matching
@@ -22,26 +24,17 @@ use function get_class;
  */
 class AdminEntityMatcher
 {
-    /** @var AdminRegistry */
     protected AdminRegistry $adminRegistry;
 
-    /** @var array */
     protected array $cache = [];
 
-    /**
-     * @param AdminRegistry $adminRegistry
-     */
     public function __construct(AdminRegistry $adminRegistry)
     {
         $this->adminRegistry = $adminRegistry;
     }
 
     /**
-     * @param mixed $entity
-     *
      * @throws UnexpectedValueException
-     *
-     * @return Admin
      */
     public function getAdminForEntity($entity): Admin
     {

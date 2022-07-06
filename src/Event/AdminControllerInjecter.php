@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -10,13 +12,13 @@
 
 namespace Sidus\AdminBundle\Event;
 
+use function is_array;
 use LogicException;
 use Sidus\AdminBundle\Action\ActionInjectableInterface;
 use Sidus\AdminBundle\Admin\Admin;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use UnexpectedValueException;
-use function is_array;
 
 /**
  * Injects the active admin in the controller
@@ -31,14 +33,17 @@ class AdminControllerInjecter
     public function onKernelController(ControllerEvent $event): void
     {
         $controller = $event->getController();
+
         if (is_array($controller)) {
             [$controller] = $controller; // Ignoring action
         }
+
         if (!$controller instanceof ActionInjectableInterface) {
             return;
         }
 
         $request = $event->getRequest();
+
         if (!$request->attributes->has('_admin')) {
             $routeName = $request->attributes->get('_route');
 
@@ -47,6 +52,7 @@ class AdminControllerInjecter
             throw new LogicException($m);
         }
         $admin = $request->attributes->get('_admin');
+
         if (!$admin instanceof Admin) {
             throw new UnexpectedValueException('_admin request attribute is not an Admin object');
         }

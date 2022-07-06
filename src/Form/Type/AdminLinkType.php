@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -29,27 +31,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class AdminLinkType extends AbstractType
 {
-    /** @var AdminRouter */
     protected AdminRouter $adminRouter;
 
-    /** @var AdminRegistry */
     protected AdminRegistry $adminRegistry;
 
-    /**
-     * @param AdminRouter   $adminRouter
-     * @param AdminRegistry $adminRegistry
-     */
     public function __construct(AdminRouter $adminRouter, AdminRegistry $adminRegistry)
     {
         $this->adminRouter = $adminRouter;
         $this->adminRegistry = $adminRegistry;
     }
 
-    /**
-     * @param FormView      $view
-     * @param FormInterface $form
-     * @param array         $options
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['admin'] = $options['admin'];
@@ -79,6 +70,7 @@ class AdminLinkType extends AbstractType
                 if ($value instanceof Admin) {
                     return $value;
                 }
+
                 if (null === $value) {
                     return $this->adminRegistry->getCurrentAdmin();
                 }
@@ -94,9 +86,7 @@ class AdminLinkType extends AbstractType
 
                 if ($value instanceof Action) {
                     if ($value->getAdmin() !== $admin) {
-                        throw new LogicException(
-                            "Wrong Admin for Action {$value->getCode()}: {$value->getAdmin()->getCode()}"
-                        );
+                        throw new LogicException("Wrong Admin for Action {$value->getCode()}: {$value->getAdmin()->getCode()}");
                     }
 
                     return $value;

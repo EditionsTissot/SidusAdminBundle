@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -11,9 +13,9 @@
 namespace Sidus\AdminBundle\Action;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sidus\AdminBundle\Templating\TemplatingHelper;
 use Sidus\AdminBundle\Admin\Action;
 use Sidus\AdminBundle\DataGrid\DataGridHelper;
+use Sidus\AdminBundle\Templating\TemplatingHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
@@ -23,23 +25,15 @@ use Symfony\Component\Routing\RouterInterface;
  */
 class ListAction implements ActionInjectableInterface
 {
-    /** @var DataGridHelper */
     protected DataGridHelper $dataGridHelper;
 
-    /** @var TemplatingHelper */
     protected TemplatingHelper $templatingHelper;
 
-    /** @var RouterInterface */
     protected RouterInterface $router;
 
     /** @var Action */
     protected $action;
 
-    /**
-     * @param DataGridHelper   $dataGridHelper
-     * @param TemplatingHelper $templatingHelper
-     * @param RouterInterface  $router
-     */
     public function __construct(
         DataGridHelper $dataGridHelper,
         TemplatingHelper $templatingHelper,
@@ -50,11 +44,6 @@ class ListAction implements ActionInjectableInterface
         $this->router = $router;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function __invoke(Request $request): Response
     {
         $dataGrid = $this->dataGridHelper->bindDataGridRequest($this->action, $request);
@@ -62,9 +51,6 @@ class ListAction implements ActionInjectableInterface
         return $this->templatingHelper->renderListAction($this->action, $dataGrid);
     }
 
-    /**
-     * @param Action $action
-     */
     public function setAction(Action $action): void
     {
         $this->action = $action;

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -10,6 +12,7 @@
 
 namespace Sidus\AdminBundle\Templating;
 
+use function count;
 use LogicException;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
@@ -19,7 +22,6 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Template;
-use function count;
 
 /**
  * Resolve templates based on admin configuration
@@ -28,16 +30,10 @@ use function count;
  */
 class TemplateResolver implements TemplateResolverInterface
 {
-    /** @var Environment */
     protected Environment $twig;
 
-    /** @var LoggerInterface */
     protected LoggerInterface $logger;
 
-    /**
-     * @param Environment     $twig
-     * @param LoggerInterface $logger
-     */
     public function __construct(
         Environment $twig,
         LoggerInterface $logger
@@ -47,25 +43,23 @@ class TemplateResolver implements TemplateResolverInterface
     }
 
     /**
-     * @param Action $action
      * @param string $format
      *
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
-     *
-     * @return Template
      */
     public function getTemplate(Action $action, $format = 'html'): Template
     {
         $admin = $action->getAdmin();
+
         if ($action->getTemplate()) {
             // If the template was specified, use this one
             return $this->twig->loadTemplate($action->getTemplate());
         }
 
         // Priority to new template_pattern system:
-        if (count($admin->getTemplatePattern()) === 0) {
+        if (0 === count($admin->getTemplatePattern())) {
             throw new LogicException("No template configured for action {$admin->getCode()}.{$action->getCode()}");
         }
 
@@ -80,6 +74,7 @@ class TemplateResolver implements TemplateResolverInterface
                     '{{format}}' => $format,
                 ]
             );
+
             try {
                 return $this->twig->loadTemplate($template);
             } catch (LoaderError $mainError) {
@@ -89,8 +84,6 @@ class TemplateResolver implements TemplateResolverInterface
         }
 
         $flattened = implode(', ', $admin->getTemplatePattern());
-        throw new RuntimeException(
-            "Unable to resolve any valid template for the template_pattern configuration: {$flattened}"
-        );
+        throw new RuntimeException("Unable to resolve any valid template for the template_pattern configuration: {$flattened}");
     }
 }

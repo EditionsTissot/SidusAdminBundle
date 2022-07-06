@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -10,9 +12,9 @@
 
 namespace Sidus\AdminBundle\Admin;
 
+use function count;
 use LogicException;
 use Symfony\Component\Routing\Route;
-use function count;
 
 /**
  * Holds information about an action and it's related route and template
@@ -21,13 +23,11 @@ use function count;
  */
 class Action
 {
-    /** @var string */
     protected string $code;
 
     /** @var Route */
     protected $route;
 
-    /** @var Admin */
     protected Admin $admin;
 
     /** @var array */
@@ -45,11 +45,6 @@ class Action
     /** @var string */
     protected $baseTemplate;
 
-    /**
-     * @param string $code
-     * @param Admin  $admin
-     * @param array  $c
-     */
     public function __construct(string $code, Admin $admin, array $c)
     {
         $this->code = $code;
@@ -74,7 +69,7 @@ class Action
         $c['defaults']['_action'] = $code;
 
         $this->route = new Route(
-            $this->getAdmin()->getPrefix().$c['path'],
+            $this->getAdmin()->getPrefix() . $c['path'],
             $c['defaults'],
             $c['requirements'],
             $c['options'], // Consider removing this as it might conflict with our options
@@ -85,52 +80,31 @@ class Action
         );
     }
 
-    /**
-     * @return string
-     */
     public function getRouteName(): string
     {
         return "sidus_admin.{$this->getAdmin()->getCode()}.{$this->getCode()}";
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @return Route
-     */
     public function getRoute(): Route
     {
         return $this->route;
     }
 
-    /**
-     * @return Admin
-     */
     public function getAdmin(): Admin
     {
         return $this->admin;
     }
 
-    /**
-     * @return array
-     */
     public function getOptions(): array
     {
         return $this->options;
     }
 
-    /**
-     * @param string $option
-     * @param mixed  $default
-     *
-     * @return mixed
-     */
     public function getOption(string $option, $default = null)
     {
         if (!$this->hasOption($option)) {
@@ -140,19 +114,11 @@ class Action
         return $this->options[$option];
     }
 
-    /**
-     * @param string $option
-     *
-     * @return bool
-     */
     public function hasOption(string $option): bool
     {
         return array_key_exists($option, $this->options);
     }
 
-    /**
-     * @return string|null
-     */
     public function getFormType(): ?string
     {
         if (!$this->formType) {
@@ -162,25 +128,16 @@ class Action
         return $this->formType;
     }
 
-    /**
-     * @return array
-     */
     public function getFormOptions(): array
     {
         return $this->formOptions;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTemplate(): ?string
     {
         return $this->template;
     }
 
-    /**
-     * @return string
-     */
     public function getBaseTemplate(): string
     {
         return $this->baseTemplate;

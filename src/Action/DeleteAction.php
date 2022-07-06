@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -24,18 +26,10 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class DeleteAction extends AbstractEmptyFormAction
 {
-    /** @var RoutingHelper */
     protected RoutingHelper $routingHelper;
 
-    /** @var DoctrineHelper */
     protected DoctrineHelper $doctrineHelper;
 
-    /**
-     * @param FormHelper       $formHelper
-     * @param TemplatingHelper $templatingHelper
-     * @param RoutingHelper    $routingHelper
-     * @param DoctrineHelper   $doctrineHelper
-     */
     public function __construct(
         FormHelper $formHelper,
         TemplatingHelper $templatingHelper,

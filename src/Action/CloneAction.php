@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -24,32 +26,21 @@ class CloneAction implements ActionInjectableInterface
 {
     use UpdateSubActionRedirectionTrait;
 
-    /** @var EditAction */
     protected EditAction $editAction;
 
     /** @var Action */
     protected $action;
 
-    /**
-     * @param EditAction                    $editAction
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     */
     public function __construct(
         EditAction $editAction,
         AuthorizationCheckerInterface $authorizationChecker
-    )
-    {
+    ) {
         $this->editAction = $editAction;
         $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
      * @ParamConverter(name="data", converter="sidus_admin.entity")
-     *
-     * @param Request $request
-     * @param mixed   $data
-     *
-     * @return Response
      */
     public function __invoke(Request $request, $data): Response
     {
@@ -58,9 +49,6 @@ class CloneAction implements ActionInjectableInterface
         return ($this->editAction)($request, clone $data);
     }
 
-    /**
-     * @param Action $action
-     */
     public function setAction(Action $action): void
     {
         $this->action = $action;

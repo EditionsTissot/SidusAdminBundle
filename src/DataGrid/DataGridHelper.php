@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -23,24 +25,14 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class DataGridHelper
 {
-    /** @var DataGridRegistry */
     protected DataGridRegistry $dataGridRegistry;
 
-    /** @var RoutingHelper */
     protected RoutingHelper $routingHelper;
 
-    /** @var FormFactoryInterface */
     protected FormFactoryInterface $formFactory;
 
-    /** @var string */
     protected string $method;
 
-    /**
-     * @param DataGridRegistry     $dataGridRegistry
-     * @param RoutingHelper        $routingHelper
-     * @param FormFactoryInterface $formFactory
-     * @param string               $method
-     */
     public function __construct(
         DataGridRegistry $dataGridRegistry,
         RoutingHelper $routingHelper,
@@ -53,11 +45,6 @@ class DataGridHelper
         $this->method = $method;
     }
 
-    /**
-     * @param Action $action
-     *
-     * @return string
-     */
     public function getDataGridConfigCode(Action $action): string
     {
         // Check if datagrid code is set in options
@@ -70,24 +57,11 @@ class DataGridHelper
         );
     }
 
-    /**
-     * @param Action $action
-     *
-     * @return DataGrid
-     */
     public function getDataGrid(Action $action): DataGrid
     {
         return $this->dataGridRegistry->getDataGrid($this->getDataGridConfigCode($action));
     }
 
-    /**
-     * @param Action        $action
-     * @param Request       $request
-     * @param DataGrid|null $dataGrid
-     * @param array         $formOptions
-     *
-     * @return DataGrid
-     */
     public function bindDataGridRequest(
         Action $action,
         Request $request,
@@ -100,14 +74,6 @@ class DataGridHelper
         return $dataGrid;
     }
 
-    /**
-     * @param Action        $action
-     * @param Request       $request
-     * @param DataGrid|null $dataGrid
-     * @param array         $formOptions
-     *
-     * @return DataGrid
-     */
     public function buildDataGridForm(
         Action $action,
         Request $request,

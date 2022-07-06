@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -10,6 +12,7 @@
 
 namespace Sidus\AdminBundle\Event;
 
+use function is_array;
 use LogicException;
 use RuntimeException;
 use Sidus\AdminBundle\Admin\Action;
@@ -19,19 +22,14 @@ use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use UnexpectedValueException;
-use function is_array;
 
 /**
  * Resolve the proper controller when the _controller_pattern option is used
  */
 class AdminControllerResolver
 {
-    /** @var ControllerResolverInterface */
     public ControllerResolverInterface $controllerResolver;
 
-    /**
-     * @param ControllerResolverInterface $controllerResolver
-     */
     public function __construct(ControllerResolverInterface $controllerResolver)
     {
         $this->controllerResolver = $controllerResolver;
@@ -43,22 +41,27 @@ class AdminControllerResolver
     public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
+
         if ($request->attributes->has('_controller')) {
             return;
         }
+
         if (!$request->attributes->has('_controller_pattern')) {
             return;
         }
 
         $controllerPattern = $request->attributes->get('_controller_pattern');
+
         if (!is_array($controllerPattern)) {
             throw new UnexpectedValueException("'_controller_pattern' must be an array");
         }
         $admin = $request->attributes->get('_admin');
         $action = $request->attributes->get('_action');
+
         if (!$admin instanceof Admin) {
             throw new UnexpectedValueException('_admin request attribute is not an Admin object');
         }
+
         if (!$action instanceof Action) {
             throw new UnexpectedValueException('_action request attribute is not an Action object');
         }
@@ -67,11 +70,6 @@ class AdminControllerResolver
     }
 
     /**
-     * @param Request $request
-     * @param Admin   $admin
-     * @param Action  $action
-     * @param array   $controllerPatterns
-     *
      * @return callable|false
      */
     protected function getController(Request $request, Admin $admin, Action $action, array $controllerPatterns)
@@ -88,6 +86,7 @@ class AdminControllerResolver
             );
             $testRequest = clone $request;
             $testRequest->attributes->set('_controller', $controller);
+
             try {
                 $resolvedController = $this->controllerResolver->getController($testRequest);
             } catch (LogicException $e) {

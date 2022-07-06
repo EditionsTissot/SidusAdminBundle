@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -19,8 +21,5 @@ use Sidus\AdminBundle\Admin\Action;
  */
 interface RedirectableInterface extends ActionInjectableInterface
 {
-    /**
-     * @param Action $action
-     */
     public function setRedirectAction(Action $action): void;
 }

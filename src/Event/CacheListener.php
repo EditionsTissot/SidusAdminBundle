@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -33,6 +35,7 @@ class CacheListener
         }
 
         $admin = $event->getRequest()->attributes->get('_admin');
+
         if (!$admin instanceof Admin) {
             throw new UnexpectedValueException('_admin request attribute is not an Admin object');
         }

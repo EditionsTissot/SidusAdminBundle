@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -24,12 +26,8 @@ use UnexpectedValueException;
  */
 class AdminEntityParamConverter implements ParamConverterInterface
 {
-    /** @var ManagerRegistry */
     protected ManagerRegistry $doctrine;
 
-    /**
-     * @param ManagerRegistry $doctrine
-     */
     public function __construct(ManagerRegistry $doctrine)
     {
         $this->doctrine = $doctrine;
@@ -44,14 +42,17 @@ class AdminEntityParamConverter implements ParamConverterInterface
             throw new UnexpectedValueException('Missing _admin request attribute');
         }
         $admin = $request->attributes->get('_admin');
+
         if (!$admin instanceof Admin) {
             throw new UnexpectedValueException('_admin request attribute is not an Admin object');
         }
         $entityManager = $this->doctrine->getManagerForClass($admin->getEntity());
+
         if (!$entityManager instanceof EntityManagerInterface) {
             throw new UnexpectedValueException("Unable to find an EntityManager for class {$admin->getEntity()}");
         }
         $id = $request->attributes->get($configuration->getOptions()['attribute'] ?? 'id');
+
         if (null === $id) {
             $m = "Unable to resolve request attribute for identifier, either use 'id' as a request parameter or set it";
             $m .= " manually in the 'attribute' option of your param converter configuration";
@@ -59,6 +60,7 @@ class AdminEntityParamConverter implements ParamConverterInterface
         }
         $repository = $entityManager->getRepository($admin->getEntity());
         $entity = $repository->find($id);
+
         if (!$entity) {
             throw new NotFoundHttpException("No entity found for class {$admin->getEntity()} and id {$id}");
         }

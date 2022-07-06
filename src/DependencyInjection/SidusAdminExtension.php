@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -19,7 +21,7 @@ use Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
 /**
  * This is the class that loads and manages your bundle configuration.
  *
- * @link   http://symfony.com/doc/current/cookbook/bundles/extension.html
+ * @see   http://symfony.com/doc/current/cookbook/bundles/extension.html
  *
  * @author Vincent Chalnot <vincent@sidus.fr>
  */
@@ -42,24 +44,20 @@ class SidusAdminExtension extends SidusBaseExtension
         parent::load($configs, $container);
     }
 
-    /**
-     * @return ConfigurationInterface
-     */
     protected function createConfiguration(): ConfigurationInterface
     {
         return new Configuration();
     }
 
     /**
-     * @param string           $code
-     * @param array            $adminConfiguration
-     * @param ContainerBuilder $container
+     * @param string $code
      *
      * @throws BadMethodCallException
      */
     protected function createAdminServiceDefinition($code, array $adminConfiguration, ContainerBuilder $container): void
     {
         $adminConfiguration = array_merge(['action_class' => $this->globalConfig['action_class']], $adminConfiguration);
+
         if (!isset($adminConfiguration['base_template'])) {
             $adminConfiguration['base_template'] = $this->globalConfig['base_template'];
         }
@@ -73,6 +71,6 @@ class SidusAdminExtension extends SidusBaseExtension
         );
         $definition->addTag('sidus.admin');
         $definition->setPublic(false);
-        $container->setDefinition('sidus_admin.admin.'.$code, $definition);
+        $container->setDefinition('sidus_admin.admin.' . $code, $definition);
     }
 }

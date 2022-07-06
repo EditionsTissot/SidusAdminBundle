@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -18,13 +20,8 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 trait UpdateSubActionRedirectionTrait
 {
-    /** @var AuthorizationCheckerInterface */
     protected AuthorizationCheckerInterface $authorizationChecker;
 
-    /**
-     * @param RedirectableInterface $redirectable
-     * @param Action                $action
-     */
     protected function updateRedirectAction(RedirectableInterface $redirectable, Action $action): void
     {
         $redirectable->setAction($action);

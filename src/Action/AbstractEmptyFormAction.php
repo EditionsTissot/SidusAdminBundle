@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -10,10 +12,10 @@
 
 namespace Sidus\AdminBundle\Action;
 
-use Sidus\AdminBundle\Templating\TemplatingHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sidus\AdminBundle\Admin\Action;
 use Sidus\AdminBundle\Form\FormHelper;
+use Sidus\AdminBundle\Templating\TemplatingHelper;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,19 +25,13 @@ use Symfony\Component\HttpFoundation\Response;
  */
 abstract class AbstractEmptyFormAction implements ActionInjectableInterface
 {
-    /** @var FormHelper */
     protected FormHelper $formHelper;
 
-    /** @var TemplatingHelper */
     protected TemplatingHelper $templatingHelper;
 
     /** @var Action */
     protected $action;
 
-    /**
-     * @param FormHelper       $formHelper
-     * @param TemplatingHelper $templatingHelper
-     */
     public function __construct(
         FormHelper $formHelper,
         TemplatingHelper $templatingHelper
@@ -46,11 +42,6 @@ abstract class AbstractEmptyFormAction implements ActionInjectableInterface
 
     /**
      * @ParamConverter(name="data", converter="sidus_admin.entity")
-     *
-     * @param Request $request
-     * @param mixed   $data
-     *
-     * @return Response
      */
     public function __invoke(Request $request, $data): Response
     {
@@ -58,6 +49,7 @@ abstract class AbstractEmptyFormAction implements ActionInjectableInterface
         $form = $this->formHelper->getEmptyForm($this->action, $request, $data);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->applyAction($request, $form, $data);
         }
@@ -72,20 +64,10 @@ abstract class AbstractEmptyFormAction implements ActionInjectableInterface
         );
     }
 
-    /**
-     * @param Action $action
-     */
     public function setAction(Action $action): void
     {
         $this->action = $action;
     }
 
-    /**
-     * @param Request       $request
-     * @param FormInterface $form
-     * @param mixed         $data
-     *
-     * @return Response
-     */
     abstract protected function applyAction(Request $request, FormInterface $form, $data): Response;
 }
