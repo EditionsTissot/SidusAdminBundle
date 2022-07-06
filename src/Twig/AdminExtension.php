@@ -26,13 +26,13 @@ use UnexpectedValueException;
 class AdminExtension extends AbstractExtension
 {
     /** @var AdminRegistry */
-    protected $adminRegistry;
+    protected AdminRegistry $adminRegistry;
 
     /** @var AdminEntityMatcher */
-    protected $adminEntityMatcher;
+    protected AdminEntityMatcher $adminEntityMatcher;
 
     /** @var AdminRouter */
-    protected $adminRouter;
+    protected AdminRouter $adminRouter;
 
     /**
      * @param AdminRegistry      $adminRegistry

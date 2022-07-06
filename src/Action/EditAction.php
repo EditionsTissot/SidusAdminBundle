@@ -26,16 +26,16 @@ use Symfony\Component\HttpFoundation\Response;
 class EditAction implements RedirectableInterface
 {
     /** @var FormHelper */
-    protected $formHelper;
+    protected FormHelper $formHelper;
 
     /** @var DoctrineHelper */
-    protected $doctrineHelper;
+    protected DoctrineHelper $doctrineHelper;
 
     /** @var RoutingHelper */
-    protected $routingHelper;
+    protected RoutingHelper $routingHelper;
 
     /** @var TemplatingHelper */
-    protected $templatingHelper;
+    protected TemplatingHelper $templatingHelper;
 
     /** @var Action */
     protected $action;

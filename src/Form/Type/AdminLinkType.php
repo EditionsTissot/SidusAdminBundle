@@ -30,10 +30,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class AdminLinkType extends AbstractType
 {
     /** @var AdminRouter */
-    protected $adminRouter;
+    protected AdminRouter $adminRouter;
 
     /** @var AdminRegistry */
-    protected $adminRegistry;
+    protected AdminRegistry $adminRegistry;
 
     /**
      * @param AdminRouter   $adminRouter

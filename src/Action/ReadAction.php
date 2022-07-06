@@ -24,10 +24,10 @@ use Symfony\Component\HttpFoundation\Response;
 class ReadAction implements ActionInjectableInterface
 {
     /** @var FormHelper */
-    protected $formHelper;
+    protected FormHelper $formHelper;
 
     /** @var TemplatingHelper */
-    protected $templatingHelper;
+    protected TemplatingHelper $templatingHelper;
 
     /** @var Action */
     protected $action;

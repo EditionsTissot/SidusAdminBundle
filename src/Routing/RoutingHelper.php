@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class RoutingHelper
 {
     /** @var AdminRouter */
-    protected $adminRouter;
+    protected AdminRouter $adminRouter;
 
     /**
      * @param AdminRouter $adminRouter

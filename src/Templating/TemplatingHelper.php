@@ -22,10 +22,10 @@ use Symfony\Component\HttpFoundation\Response;
 class TemplatingHelper
 {
     /** @var TemplateResolverInterface */
-    protected $templateResolver;
+    protected TemplateResolverInterface $templateResolver;
 
     /** @var RoutingHelper */
-    protected $routingHelper;
+    protected RoutingHelper $routingHelper;
 
     /**
      * @param TemplateResolverInterface $templateResolver

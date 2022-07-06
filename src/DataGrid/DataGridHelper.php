@@ -24,16 +24,16 @@ use Symfony\Component\HttpFoundation\Request;
 class DataGridHelper
 {
     /** @var DataGridRegistry */
-    protected $dataGridRegistry;
+    protected DataGridRegistry $dataGridRegistry;
 
     /** @var RoutingHelper */
-    protected $routingHelper;
+    protected RoutingHelper $routingHelper;
 
     /** @var FormFactoryInterface */
-    protected $formFactory;
+    protected FormFactoryInterface $formFactory;
 
     /** @var string */
-    protected $method;
+    protected string $method;
 
     /**
      * @param DataGridRegistry     $dataGridRegistry

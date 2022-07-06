@@ -20,7 +20,7 @@ use UnexpectedValueException;
 class Admin
 {
     /** @var string */
-    protected $code;
+    protected string $code;
 
     /** @var array */
     protected $controllerPattern = [];

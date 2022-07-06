@@ -23,10 +23,10 @@ use function get_class;
 class AdminEntityMatcher
 {
     /** @var AdminRegistry */
-    protected $adminRegistry;
+    protected AdminRegistry $adminRegistry;
 
     /** @var array */
-    protected $cache = [];
+    protected array $cache = [];
 
     /**
      * @param AdminRegistry $adminRegistry

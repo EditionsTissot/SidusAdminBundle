@@ -23,13 +23,14 @@ use Symfony\Component\Routing\RouteCollection;
 class AdminRouteLoader extends Loader
 {
     /** @var AdminRegistry */
-    protected $adminRegistry;
+    protected AdminRegistry $adminRegistry;
 
     /**
      * @param AdminRegistry $adminRegistry
      */
     public function __construct(AdminRegistry $adminRegistry)
     {
+        parent::__construct();
         $this->adminRegistry = $adminRegistry;
     }
 
@@ -60,7 +61,7 @@ class AdminRouteLoader extends Loader
      *
      * @return bool
      */
-    public function supports($resource, $type = null): bool
+    public function supports($resource, string $type = null): bool
     {
         return 'sidus_admin' === $type;
     }

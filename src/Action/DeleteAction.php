@@ -25,10 +25,10 @@ use Symfony\Component\HttpFoundation\Response;
 class DeleteAction extends AbstractEmptyFormAction
 {
     /** @var RoutingHelper */
-    protected $routingHelper;
+    protected RoutingHelper $routingHelper;
 
     /** @var DoctrineHelper */
-    protected $doctrineHelper;
+    protected DoctrineHelper $doctrineHelper;
 
     /**
      * @param FormHelper       $formHelper

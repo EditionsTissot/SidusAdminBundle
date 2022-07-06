@@ -21,7 +21,7 @@ use UnexpectedValueException;
 class AdminRegistry
 {
     /** @var Admin[] */
-    protected $admins = [];
+    protected array $admins = [];
 
     /** @var Admin */
     protected $currentAdmin;

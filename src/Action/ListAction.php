@@ -24,13 +24,13 @@ use Symfony\Component\Routing\RouterInterface;
 class ListAction implements ActionInjectableInterface
 {
     /** @var DataGridHelper */
-    protected $dataGridHelper;
+    protected DataGridHelper $dataGridHelper;
 
     /** @var TemplatingHelper */
-    protected $templatingHelper;
+    protected TemplatingHelper $templatingHelper;
 
     /** @var RouterInterface */
-    protected $router;
+    protected RouterInterface $router;
 
     /** @var Action */
     protected $action;
@@ -55,7 +55,7 @@ class ListAction implements ActionInjectableInterface
      *
      * @return Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $dataGrid = $this->dataGridHelper->bindDataGridRequest($this->action, $request);
 

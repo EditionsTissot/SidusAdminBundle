@@ -29,16 +29,16 @@ use UnexpectedValueException;
 class AdminRouter
 {
     /** @var AdminRegistry */
-    protected $adminRegistry;
+    protected AdminRegistry $adminRegistry;
 
     /** @var AdminEntityMatcher */
-    protected $adminEntityMatcher;
+    protected AdminEntityMatcher $adminEntityMatcher;
 
     /** @var RouterInterface */
-    protected $router;
+    protected RouterInterface $router;
 
     /** @var PropertyAccessorInterface */
-    protected $accessor;
+    protected PropertyAccessorInterface $accessor;
 
     /**
      * @param AdminRegistry             $adminRegistry

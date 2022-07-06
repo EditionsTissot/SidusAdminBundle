@@ -25,10 +25,10 @@ use UnexpectedValueException;
 class FormHelper
 {
     /** @var RoutingHelper */
-    protected $routingHelper;
+    protected RoutingHelper $routingHelper;
 
     /** @var FormFactoryInterface */
-    protected $formFactory;
+    protected FormFactoryInterface $formFactory;
 
     /**
      * @param RoutingHelper        $routingHelper

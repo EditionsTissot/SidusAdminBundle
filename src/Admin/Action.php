@@ -22,13 +22,13 @@ use function count;
 class Action
 {
     /** @var string */
-    protected $code;
+    protected string $code;
 
     /** @var Route */
     protected $route;
 
     /** @var Admin */
-    protected $admin;
+    protected Admin $admin;
 
     /** @var array */
     protected $options;

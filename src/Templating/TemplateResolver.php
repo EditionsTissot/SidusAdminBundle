@@ -29,10 +29,10 @@ use function count;
 class TemplateResolver implements TemplateResolverInterface
 {
     /** @var Environment */
-    protected $twig;
+    protected Environment $twig;
 
     /** @var LoggerInterface */
-    protected $logger;
+    protected LoggerInterface $logger;
 
     /**
      * @param Environment     $twig

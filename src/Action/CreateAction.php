@@ -24,7 +24,7 @@ class CreateAction implements ActionInjectableInterface
     use UpdateSubActionRedirectionTrait;
 
     /** @var EditAction */
-    protected $editAction;
+    protected EditAction $editAction;
 
     /** @var Action */
     protected $action;

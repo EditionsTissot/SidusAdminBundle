@@ -25,7 +25,7 @@ class CloneAction implements ActionInjectableInterface
     use UpdateSubActionRedirectionTrait;
 
     /** @var EditAction */
-    protected $editAction;
+    protected EditAction $editAction;
 
     /** @var Action */
     protected $action;
@@ -34,7 +34,10 @@ class CloneAction implements ActionInjectableInterface
      * @param EditAction                    $editAction
      * @param AuthorizationCheckerInterface $authorizationChecker
      */
-    public function __construct(EditAction $editAction, AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(
+        EditAction $editAction,
+        AuthorizationCheckerInterface $authorizationChecker
+    )
     {
         $this->editAction = $editAction;
         $this->authorizationChecker = $authorizationChecker;
