@@ -72,6 +72,7 @@ class TemplatingHelper
 
     /**
      * @param FormInterface $form
+     * @param mixed|null    $data
      */
     public function getViewParameters(
         Action $action,
