@@ -28,7 +28,6 @@ class AdminRouteLoader extends Loader
 
     public function __construct(AdminRegistry $adminRegistry)
     {
-        parent::__construct();
         $this->adminRegistry = $adminRegistry;
     }
 
@@ -53,7 +52,7 @@ class AdminRouteLoader extends Loader
     /**
      * @param string $type
      */
-    public function supports($resource, string $type = null): bool
+    public function supports($resource, $type = null): bool
     {
         return 'sidus_admin' === $type;
     }
