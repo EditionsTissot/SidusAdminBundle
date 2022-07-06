@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -10,13 +12,13 @@
 
 namespace Sidus\AdminBundle\Action;
 
-use Sidus\AdminBundle\Templating\TemplatingHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sidus\AdminBundle\Admin\Action;
 use Sidus\AdminBundle\Doctrine\DoctrineHelper;
 use Sidus\AdminBundle\Form\FormHelper;
 use Sidus\AdminBundle\Routing\RoutingHelper;
+use Sidus\AdminBundle\Templating\TemplatingHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,17 +27,13 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class EditAction implements RedirectableInterface
 {
-    /** @var FormHelper */
-    protected $formHelper;
+    protected FormHelper $formHelper;
 
-    /** @var DoctrineHelper */
-    protected $doctrineHelper;
+    protected DoctrineHelper $doctrineHelper;
 
-    /** @var RoutingHelper */
-    protected $routingHelper;
+    protected RoutingHelper $routingHelper;
 
-    /** @var TemplatingHelper */
-    protected $templatingHelper;
+    protected TemplatingHelper $templatingHelper;
 
     /** @var Action */
     protected $action;
@@ -43,12 +41,6 @@ class EditAction implements RedirectableInterface
     /** @var Action */
     protected $redirectAction;
 
-    /**
-     * @param FormHelper       $formHelper
-     * @param DoctrineHelper   $doctrineHelper
-     * @param RoutingHelper    $routingHelper
-     * @param TemplatingHelper $templatingHelper
-     */
     public function __construct(
         FormHelper $formHelper,
         DoctrineHelper $doctrineHelper,
@@ -63,17 +55,13 @@ class EditAction implements RedirectableInterface
 
     /**
      * @ParamConverter(name="data", converter="sidus_admin.entity")
-     *
-     * @param Request $request
-     * @param mixed   $data
-     *
-     * @return Response
      */
     public function __invoke(Request $request, $data): Response
     {
         $form = $this->formHelper->getForm($this->action, $request, $data);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->doctrineHelper->saveEntity($this->action, $data, $request->getSession());
 
@@ -83,17 +71,11 @@ class EditAction implements RedirectableInterface
         return $this->templatingHelper->renderFormAction($this->action, $form, $data);
     }
 
-    /**
-     * @param Action $action
-     */
     public function setRedirectAction(Action $action): void
     {
         $this->redirectAction = $action;
     }
 
-    /**
-     * @param Action $action
-     */
     public function setAction(Action $action): void
     {
         $this->action = $action;

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -12,6 +14,7 @@ namespace Sidus\AdminBundle\Event;
 
 use Sidus\AdminBundle\Admin\Admin;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use UnexpectedValueException;
 
@@ -25,13 +28,14 @@ class CacheListener
     /**
      * @param FilterResponseEvent $event
      */
-    public function onKernelResponse(FilterResponseEvent $event): void
+    public function onKernelResponse(ResponseEvent $event): void
     {
         if (!$event->getRequest()->attributes->has('_admin')) {
             return;
         }
 
         $admin = $event->getRequest()->attributes->get('_admin');
+
         if (!$admin instanceof Admin) {
             throw new UnexpectedValueException('_admin request attribute is not an Admin object');
         }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -25,20 +27,12 @@ use UnexpectedValueException;
  */
 class AdminExtension extends AbstractExtension
 {
-    /** @var AdminRegistry */
-    protected $adminRegistry;
+    protected AdminRegistry $adminRegistry;
 
-    /** @var AdminEntityMatcher */
-    protected $adminEntityMatcher;
+    protected AdminEntityMatcher $adminEntityMatcher;
 
-    /** @var AdminRouter */
-    protected $adminRouter;
+    protected AdminRouter $adminRouter;
 
-    /**
-     * @param AdminRegistry      $adminRegistry
-     * @param AdminEntityMatcher $adminEntityMatcher
-     * @param AdminRouter        $adminRouter
-     */
     public function __construct(
         AdminRegistry $adminRegistry,
         AdminEntityMatcher $adminEntityMatcher,
@@ -49,9 +43,6 @@ class AdminExtension extends AbstractExtension
         $this->adminRouter = $adminRouter;
     }
 
-    /**
-     * @return array
-     */
     public function getFunctions(): array
     {
         return [
@@ -68,8 +59,6 @@ class AdminExtension extends AbstractExtension
      * @param string $code
      *
      * @throws UnexpectedValueException
-     *
-     * @return Admin
      */
     public function getAdmin($code): Admin
     {

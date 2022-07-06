@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -10,16 +12,16 @@
 
 namespace Sidus\AdminBundle\Doctrine;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use InvalidArgumentException;
 use LogicException;
 use Sidus\AdminBundle\Admin\Action;
 use Sidus\BaseBundle\Translator\TranslatableTrait;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Provides a simple way to access Doctrine utilities from a controller or an action
@@ -28,13 +30,8 @@ class DoctrineHelper
 {
     use TranslatableTrait;
 
-    /** @var ManagerRegistry */
-    protected $doctrine;
+    protected ManagerRegistry $doctrine;
 
-    /**
-     * @param ManagerRegistry     $doctrine
-     * @param TranslatorInterface $translator
-     */
     public function __construct(ManagerRegistry $doctrine, TranslatorInterface $translator)
     {
         $this->doctrine = $doctrine;
@@ -42,16 +39,13 @@ class DoctrineHelper
     }
 
     /**
-     * @param mixed $entity
-     *
      * @throws LogicException
-     *
-     * @return EntityManagerInterface
      */
     public function getManagerForEntity($entity): EntityManagerInterface
     {
         $class = ClassUtils::getClass($entity);
         $entityManager = $this->doctrine->getManagerForClass($class);
+
         if (!$entityManager instanceof EntityManagerInterface) {
             throw new InvalidArgumentException("No manager found for class {$class}");
         }
@@ -60,9 +54,7 @@ class DoctrineHelper
     }
 
     /**
-     * @param Action|null           $action
-     * @param mixed                 $entity
-     * @param SessionInterface|null $session
+     * @param Action|null $action
      */
     public function saveEntity(Action $action, $entity, SessionInterface $session = null): void
     {
@@ -73,11 +65,6 @@ class DoctrineHelper
         $this->addFlash($action, $session);
     }
 
-    /**
-     * @param Action                $action
-     * @param mixed                 $entity
-     * @param SessionInterface|null $session
-     */
     public function deleteEntity(Action $action, $entity, SessionInterface $session = null): void
     {
         $entityManager = $this->getManagerForEntity($entity);
@@ -87,10 +74,6 @@ class DoctrineHelper
         $this->addFlash($action, $session);
     }
 
-    /**
-     * @param Action                $action
-     * @param SessionInterface|null $session
-     */
     protected function addFlash(Action $action, SessionInterface $session = null): void
     {
         if ($action && $session instanceof Session) {
@@ -102,7 +85,7 @@ class DoctrineHelper
                         "admin.flash.{$action->getCode()}.success",
                     ],
                     [],
-                    ucfirst($action->getCode()).' success'
+                    ucfirst($action->getCode()) . ' success'
                 )
             );
         }

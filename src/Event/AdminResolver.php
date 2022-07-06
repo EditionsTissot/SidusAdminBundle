@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -15,6 +17,7 @@ use Sidus\AdminBundle\Admin\Action;
 use Sidus\AdminBundle\Admin\Admin;
 use Sidus\AdminBundle\Configuration\AdminRegistry;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use UnexpectedValueException;
 
 /**
@@ -22,12 +25,8 @@ use UnexpectedValueException;
  */
 class AdminResolver
 {
-    /** @var AdminRegistry */
-    public $adminRegistry;
+    public AdminRegistry $adminRegistry;
 
-    /**
-     * @param AdminRegistry $adminRegistry
-     */
     public function __construct(AdminRegistry $adminRegistry)
     {
         $this->adminRegistry = $adminRegistry;
@@ -36,13 +35,15 @@ class AdminResolver
     /**
      * @param GetResponseEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
+
         if (!$request->attributes->has('_admin')) {
             return;
         }
         $admin = $request->attributes->get('_admin');
+
         if (!$admin instanceof Admin) {
             $admin = $this->adminRegistry->getAdmin($admin);
             $request->attributes->set('_admin', $admin);
@@ -53,6 +54,7 @@ class AdminResolver
             throw new UnexpectedValueException('Missing _action request attribute');
         }
         $action = $request->attributes->get('_action');
+
         if (!$action instanceof Action) {
             $action = $admin->getAction($action);
             $request->attributes->set('_action', $action);

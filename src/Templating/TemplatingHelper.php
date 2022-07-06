@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -21,44 +23,25 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class TemplatingHelper
 {
-    /** @var TemplateResolverInterface */
-    protected $templateResolver;
+    protected TemplateResolverInterface $templateResolver;
 
-    /** @var RoutingHelper */
-    protected $routingHelper;
+    protected RoutingHelper $routingHelper;
 
-    /**
-     * @param TemplateResolverInterface $templateResolver
-     * @param RoutingHelper             $routingHelper
-     */
     public function __construct(TemplateResolverInterface $templateResolver, RoutingHelper $routingHelper)
     {
         $this->templateResolver = $templateResolver;
         $this->routingHelper = $routingHelper;
     }
 
-    /**
-     * @param Action $action
-     * @param array  $parameters
-     *
-     * @return Response
-     */
     public function renderAction(Action $action, array $parameters = []): Response
     {
         $response = new Response();
-        /** @noinspection PhpUnhandledExceptionInspection */
+        /* @noinspection PhpUnhandledExceptionInspection */
         $response->setContent($this->templateResolver->getTemplate($action)->render($parameters));
 
         return $response;
     }
 
-    /**
-     * @param Action   $action
-     * @param DataGrid $dataGrid
-     * @param array    $viewParameters
-     *
-     * @return Response
-     */
     public function renderListAction(
         Action $action,
         DataGrid $dataGrid,
@@ -74,12 +57,7 @@ class TemplatingHelper
     }
 
     /**
-     * @param Action        $action
-     * @param FormInterface $form
-     * @param null          $data
-     * @param array         $viewParameters
-     *
-     * @return Response
+     * @param null $data
      */
     public function renderFormAction(
         Action $action,
@@ -93,12 +71,8 @@ class TemplatingHelper
     }
 
     /**
-     * @param Action        $action
      * @param FormInterface $form
-     * @param mixed         $data
-     * @param array         $listRouteParameters
-     *
-     * @return array
+     * @param mixed|null    $data
      */
     public function getViewParameters(
         Action $action,
@@ -115,6 +89,7 @@ class TemplatingHelper
         if ($form) {
             $parameters['form'] = $form->createView();
         }
+
         if ($data) {
             $parameters['data'] = $data;
         }

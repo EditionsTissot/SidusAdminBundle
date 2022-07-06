@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -23,27 +25,17 @@ class CreateAction implements ActionInjectableInterface
 {
     use UpdateSubActionRedirectionTrait;
 
-    /** @var EditAction */
-    protected $editAction;
+    protected EditAction $editAction;
 
     /** @var Action */
     protected $action;
 
-    /**
-     * @param EditAction                    $editAction
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     */
     public function __construct(EditAction $editAction, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->editAction = $editAction;
         $this->authorizationChecker = $authorizationChecker;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function __invoke(Request $request): Response
     {
         $this->updateRedirectAction($this->editAction, $this->action);
@@ -52,9 +44,6 @@ class CreateAction implements ActionInjectableInterface
         return ($this->editAction)($request, new $class());
     }
 
-    /**
-     * @param Action $action
-     */
     public function setAction(Action $action): void
     {
         $this->action = $action;

@@ -21,21 +21,30 @@
             "Sidus\\AdminBundle\\": "src/"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/EditionsTissot/SidusDataGridBundle.git"
+        }
+    ],
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.4",
         "doctrine/orm": "~2.3",
-        "symfony/framework-bundle": "~3.0|~4.0",
-        "sensio/framework-extra-bundle": "^3.0|^5.5",
-        "symfony/security-bundle": "~3.0|~4.0",
-        "symfony/expression-language": "~3.0|~4.0",
-        "symfony/yaml": "~3.0|~4.0",
-        "symfony/form": "~3.0|~4.0",
-        "symfony/translation": "~3.0|~4.0",
-        "symfony/twig-bundle": "~3.0|~4.0",
-        "cleverage/datagrid-bundle": "3.0.*|dev-v3.0-dev",
+        "symfony/framework-bundle": "~4.0|~5.0|~6.0",
+        "sensio/framework-extra-bundle": "^5.5|^6.0",
+        "symfony/security-bundle": "~4.0|~5.0|~6.0",
+        "symfony/expression-language": "~4.0|~5.0|~6.0",
+        "symfony/yaml": "~4.0|~5.0|~6.0",
+        "symfony/form": "~4.0|~5.0|~6.0",
+        "symfony/translation": "~4.0|~5.0|~6.0",
+        "symfony/twig-bundle": "~4.0|~5.0|~6.0",
+        "cleverage/datagrid-bundle": "^3.2",
         "sidus/base-bundle": "^1.0"
     },
     "suggest": {
         "cleverage/permission-bundle": "Configure entities permissions easily"
+    },
+    "require-dev": {
+        "editions-tissot/php-cs-fixer-config": "^1.1"
     }
 }

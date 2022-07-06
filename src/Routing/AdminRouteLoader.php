@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -22,24 +24,18 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class AdminRouteLoader extends Loader
 {
-    /** @var AdminRegistry */
-    protected $adminRegistry;
+    protected AdminRegistry $adminRegistry;
 
-    /**
-     * @param AdminRegistry $adminRegistry
-     */
     public function __construct(AdminRegistry $adminRegistry)
     {
+        parent::__construct();
         $this->adminRegistry = $adminRegistry;
     }
 
     /**
-     * @param mixed $resource
-     * @param null  $type
+     * @param null $type
      *
      * @throws RuntimeException
-     *
-     * @return RouteCollection
      */
     public function load($resource, $type = null): RouteCollection
     {
@@ -55,12 +51,9 @@ class AdminRouteLoader extends Loader
     }
 
     /**
-     * @param mixed  $resource
      * @param string $type
-     *
-     * @return bool
      */
-    public function supports($resource, $type = null): bool
+    public function supports($resource, string $type = null): bool
     {
         return 'sidus_admin' === $type;
     }

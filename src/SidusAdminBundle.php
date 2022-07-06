@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -10,10 +12,10 @@
 
 namespace Sidus\AdminBundle;
 
+use Sidus\AdminBundle\Configuration\AdminRegistry;
 use Sidus\BaseBundle\DependencyInjection\Compiler\GenericCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Sidus\AdminBundle\Configuration\AdminRegistry;
 
 /**
  * @author Vincent Chalnot <vincent@sidus.fr>
@@ -22,8 +24,6 @@ class SidusAdminBundle extends Bundle
 {
     /**
      * Adding compiler passes to inject services into configuration handlers
-     *
-     * @param ContainerBuilder $container
      */
     public function build(ContainerBuilder $container): void
     {

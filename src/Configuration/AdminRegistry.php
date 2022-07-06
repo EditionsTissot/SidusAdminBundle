@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -21,14 +23,11 @@ use UnexpectedValueException;
 class AdminRegistry
 {
     /** @var Admin[] */
-    protected $admins = [];
+    protected array $admins = [];
 
     /** @var Admin */
     protected $currentAdmin;
 
-    /**
-     * @param Admin $admin
-     */
     public function addAdmin(Admin $admin): void
     {
         $this->admins[$admin->getCode()] = $admin;
@@ -43,11 +42,7 @@ class AdminRegistry
     }
 
     /**
-     * @param string $code
-     *
      * @throws UnexpectedValueException
-     *
-     * @return Admin
      */
     public function getAdmin(string $code): Admin
     {
@@ -58,28 +53,16 @@ class AdminRegistry
         return $this->admins[$code];
     }
 
-    /**
-     * @param string $code
-     *
-     * @return bool
-     */
     public function hasAdmin(string $code): bool
     {
         return isset($this->admins[$code]);
     }
 
-
-    /**
-     * @return Admin|null
-     */
     public function getCurrentAdmin(): ?Admin
     {
         return $this->currentAdmin;
     }
 
-    /**
-     * @param Admin $currentAdmin
-     */
     public function setCurrentAdmin(Admin $currentAdmin): void
     {
         $this->currentAdmin = $currentAdmin;

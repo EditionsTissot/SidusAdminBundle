@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -24,30 +26,16 @@ use UnexpectedValueException;
  */
 class FormHelper
 {
-    /** @var RoutingHelper */
-    protected $routingHelper;
+    protected RoutingHelper $routingHelper;
 
-    /** @var FormFactoryInterface */
-    protected $formFactory;
+    protected FormFactoryInterface $formFactory;
 
-    /**
-     * @param RoutingHelper        $routingHelper
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(RoutingHelper $routingHelper, FormFactoryInterface $formFactory)
     {
         $this->routingHelper = $routingHelper;
         $this->formFactory = $formFactory;
     }
 
-    /**
-     * @param Action  $action
-     * @param Request $request
-     * @param mixed   $data
-     * @param array   $options
-     *
-     * @return FormInterface
-     */
     public function getForm(Action $action, Request $request, $data, array $options = []): FormInterface
     {
         $dataId = $data && method_exists($data, 'getId') ? $data->getId() : null;
@@ -56,13 +44,6 @@ class FormHelper
         return $this->getFormBuilder($action, $data, array_merge($defaultOptions, $options))->getForm();
     }
 
-    /**
-     * @param Action  $action
-     * @param Request $request
-     * @param mixed   $data
-     *
-     * @return FormInterface
-     */
     public function getEmptyForm(
         Action $action,
         Request $request,
@@ -80,13 +61,7 @@ class FormHelper
     }
 
     /**
-     * @param Action $action
-     * @param mixed  $data
-     * @param array  $options
-     *
      * @throws UnexpectedValueException
-     *
-     * @return FormBuilderInterface
      */
     public function getFormBuilder(Action $action, $data, array $options = []): FormBuilderInterface
     {
@@ -103,11 +78,7 @@ class FormHelper
     }
 
     /**
-     * @param Action  $action
-     * @param Request $request
-     * @param null    $dataId
-     *
-     * @return array
+     * @param null $dataId
      */
     public function getDefaultFormOptions(Action $action, Request $request, $dataId = null): array
     {

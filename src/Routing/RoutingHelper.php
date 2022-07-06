@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -21,25 +23,16 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class RoutingHelper
 {
-    /** @var AdminRouter */
-    protected $adminRouter;
+    protected AdminRouter $adminRouter;
 
-    /**
-     * @param AdminRouter $adminRouter
-     */
     public function __construct(AdminRouter $adminRouter)
     {
         $this->adminRouter = $adminRouter;
     }
 
     /**
-     * @param Action $action
-     * @param mixed  $entity
-     * @param array  $parameters
-     * @param int    $referenceType
-     * @param int    $status
-     *
-     * @return RedirectResponse
+     * @param int $referenceType
+     * @param int $status
      */
     public function redirectToEntity(
         Action $action,
@@ -60,12 +53,8 @@ class RoutingHelper
     }
 
     /**
-     * @param Action $action
-     * @param array  $parameters
-     * @param int    $referenceType
-     * @param int    $status
-     *
-     * @return RedirectResponse
+     * @param int $referenceType
+     * @param int $status
      */
     public function redirectToAction(
         Action $action,
@@ -83,12 +72,6 @@ class RoutingHelper
         return new RedirectResponse($url, $status);
     }
 
-    /**
-     * @param Admin $admin
-     * @param array $parameters
-     *
-     * @return string|null
-     */
     public function getAdminListPath(Admin $admin, array $parameters = []): ?string
     {
         if (!$admin->hasAction('list')) {
@@ -98,13 +81,6 @@ class RoutingHelper
         return $this->adminRouter->generateAdminPath($admin, 'list', $parameters);
     }
 
-    /**
-     * @param Action  $action
-     * @param Request $request
-     * @param array   $parameters
-     *
-     * @return string
-     */
     public function getCurrentUri(Action $action, Request $request, array $parameters = []): string
     {
         if ($request->attributes->get('_route') === $action->getRouteName()) {

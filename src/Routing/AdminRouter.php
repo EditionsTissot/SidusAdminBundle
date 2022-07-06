@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Sidus/AdminBundle package.
  *
@@ -28,24 +30,14 @@ use UnexpectedValueException;
  */
 class AdminRouter
 {
-    /** @var AdminRegistry */
-    protected $adminRegistry;
+    protected AdminRegistry $adminRegistry;
 
-    /** @var AdminEntityMatcher */
-    protected $adminEntityMatcher;
+    protected AdminEntityMatcher $adminEntityMatcher;
 
-    /** @var RouterInterface */
-    protected $router;
+    protected RouterInterface $router;
 
-    /** @var PropertyAccessorInterface */
-    protected $accessor;
+    protected PropertyAccessorInterface $accessor;
 
-    /**
-     * @param AdminRegistry             $adminRegistry
-     * @param AdminEntityMatcher        $adminEntityMatcher
-     * @param RouterInterface           $router
-     * @param PropertyAccessorInterface $accessor
-     */
     public function __construct(
         AdminRegistry $adminRegistry,
         AdminEntityMatcher $adminEntityMatcher,
@@ -61,10 +53,7 @@ class AdminRouter
     /**
      * @param string|Admin $admin
      * @param string       $actionCode
-     * @param array        $parameters
      * @param int          $referenceType
-     *
-     * @return string
      */
     public function generateAdminPath(
         $admin,
@@ -76,6 +65,7 @@ class AdminRouter
         $action = $admin->getAction($actionCode);
 
         $missingParams = $this->computeMissingRouteParameters($action->getRoute(), $parameters);
+
         foreach ($missingParams as $missingParam) {
             if ($this->router->getContext()->hasParameter($missingParam)) {
                 $parameters[$missingParam] = $this->router->getContext()->getParameter($missingParam);
@@ -86,12 +76,8 @@ class AdminRouter
     }
 
     /**
-     * @param mixed  $entity
      * @param string $actionCode
-     * @param array  $parameters
      * @param int    $referenceType
-     *
-     * @return string
      */
     public function generateEntityPath(
         $entity,
@@ -106,12 +92,8 @@ class AdminRouter
 
     /**
      * @param string|Admin $admin
-     * @param mixed        $entity
      * @param string       $actionCode
-     * @param array        $parameters
      * @param int          $referenceType
-     *
-     * @return string
      */
     public function generateAdminEntityPath(
         $admin,
@@ -124,6 +106,7 @@ class AdminRouter
         $action = $admin->getAction($actionCode);
 
         $missingParams = $this->computeMissingRouteParameters($action->getRoute(), $parameters);
+
         foreach ($missingParams as $missingParam) {
             try {
                 $parameters[$missingParam] = $this->accessor->getValue($entity, $missingParam);
@@ -133,6 +116,7 @@ class AdminRouter
                     $parameters[$missingParam] = $this->accessor->getValue($entity, "[{$missingParam}]");
                 } catch (Exception $e) {
                     $contextParam = $this->router->getContext()->getParameter($missingParam);
+
                     if (null !== $contextParam) {
                         $parameters[$missingParam] = $contextParam;
                     }
@@ -147,14 +131,13 @@ class AdminRouter
      * @param string|Admin $admin
      *
      * @throws UnexpectedValueException
-     *
-     * @return Admin
      */
     protected function getAdmin($admin): Admin
     {
         if (null === $admin) {
             return $this->adminRegistry->getCurrentAdmin();
         }
+
         if ($admin instanceof Admin) {
             return $admin;
         }
@@ -163,12 +146,7 @@ class AdminRouter
     }
 
     /**
-     * @param Route $route
-     * @param array $parameters
-     *
      * @throws LogicException
-     *
-     * @return array
      */
     protected function computeMissingRouteParameters(Route $route, array $parameters): array
     {
