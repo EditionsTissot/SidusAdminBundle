@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Sidus\AdminBundle\Templating;
 
 use function count;
+
 use LogicException;
 use Psr\Log\LoggerInterface;
 use RuntimeException;

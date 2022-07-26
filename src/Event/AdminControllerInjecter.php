@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Sidus\AdminBundle\Event;
 
 use function is_array;
+
 use LogicException;
 use Sidus\AdminBundle\Action\ActionInjectableInterface;
 use Sidus\AdminBundle\Admin\Admin;
