@@ -63,7 +63,7 @@ class AdminLinkType extends AbstractType
                 'admin' => null,
             ]
         );
-        $resolver->setAllowedTypes('admin', ['NULL', 'string', Admin::class]);
+        $resolver->setAllowedTypes('admin', ['null', 'string', Admin::class]);
         $resolver->setNormalizer(
             'admin',
             function (Options $options, $value) {

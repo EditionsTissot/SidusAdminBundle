@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Sidus\AdminBundle\Entity;
 
 use function get_class;
+
 use Sidus\AdminBundle\Admin\Admin;
 use Sidus\AdminBundle\Configuration\AdminRegistry;
 use UnexpectedValueException;

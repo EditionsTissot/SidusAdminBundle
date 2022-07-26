@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Sidus\AdminBundle\Admin;
 
 use function count;
+
 use LogicException;
 use Symfony\Component\Routing\Route;
 
