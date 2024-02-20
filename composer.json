@@ -28,7 +28,7 @@
         }
     ],
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.0",
         "doctrine/orm": "~2.3",
         "symfony/framework-bundle": "~5.0|~6.0",
         "sensio/framework-extra-bundle": "^5.5|^6.0",
@@ -39,7 +39,7 @@
         "symfony/translation": "~5.0|~6.0",
         "symfony/twig-bundle": "~5.0|~6.0",
         "cleverage/datagrid-bundle": "^3.2",
-        "sidus/base-bundle": "^1.0"
+        "sidus/base-bundle": "^2.0"
     },
     "suggest": {
         "cleverage/permission-bundle": "Configure entities permissions easily"
