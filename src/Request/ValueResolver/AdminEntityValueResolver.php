@@ -6,10 +6,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Sidus\AdminBundle\Admin\Admin;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Attribute\AsTargetedValueResolver;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+#[AsTargetedValueResolver(AdminEntityValueResolver::class)]
 class AdminEntityValueResolver implements ValueResolverInterface
 {
     public function __construct(private ManagerRegistry $doctrine)

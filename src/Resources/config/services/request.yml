@@ -8,5 +8,5 @@ services:
   Sidus\AdminBundle\Request\ValueResolver\AdminEntityValueResolver:
     autowire: true
     tags:
-        - controller.argument_value_resolver:
+        - controller.targeted_value_resolver:
             name: Sidus\AdminBundle\Request\ValueResolver\AdminEntityValueResolver
