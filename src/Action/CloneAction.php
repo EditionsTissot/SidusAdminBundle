@@ -15,8 +15,10 @@ namespace Sidus\AdminBundle\Action;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sidus\AdminBundle\Admin\Action;
+use Sidus\AdminBundle\Request\ValueResolver\AdminEntityValueResolver;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\ValueResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
@@ -39,10 +41,8 @@ class CloneAction implements ActionInjectableInterface
         $this->authorizationChecker = $authorizationChecker;
     }
 
-    /**
-     * @ParamConverter(name="data", converter="sidus_admin.entity")
-     */
-    public function __invoke(Request $request, $data): Response
+    public function __invoke(Request $request,
+                             #[ValueResolver(AdminEntityValueResolver::class)] $data): Response
     {
         $this->updateRedirectAction($this->editAction, $this->action);
 

@@ -16,9 +16,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sidus\AdminBundle\Admin\Action;
 use Sidus\AdminBundle\Form\FormHelper;
+use Sidus\AdminBundle\Request\ValueResolver\AdminEntityValueResolver;
 use Sidus\AdminBundle\Templating\TemplatingHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\ValueResolver;
 
 /**
  * @Security("is_granted('read', data)")
@@ -40,10 +42,8 @@ class ReadAction implements ActionInjectableInterface
         $this->templatingHelper = $templatingHelper;
     }
 
-    /**
-     * @ParamConverter(name="data", converter="sidus_admin.entity")
-     */
-    public function __invoke(Request $request, $data): Response
+    public function __invoke(Request $request,
+                             #[ValueResolver(AdminEntityValueResolver::class)] $data): Response
     {
         $form = $this->formHelper->getForm($this->action, $request, $data, ['disabled' => true]);
 

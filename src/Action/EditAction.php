@@ -12,19 +12,19 @@ declare(strict_types=1);
 
 namespace Sidus\AdminBundle\Action;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sidus\AdminBundle\Admin\Action;
 use Sidus\AdminBundle\Doctrine\DoctrineHelper;
 use Sidus\AdminBundle\Form\FormHelper;
+use Sidus\AdminBundle\Request\ValueResolver\AdminEntityValueResolver;
 use Sidus\AdminBundle\Routing\RoutingHelper;
 use Sidus\AdminBundle\Templating\TemplatingHelper;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\ValueResolver;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-/**
- * @Security("is_granted('edit', data)")
- */
+#[IsGranted('edit', subject: 'data')]
 class EditAction implements RedirectableInterface
 {
     protected FormHelper $formHelper;
@@ -53,10 +53,10 @@ class EditAction implements RedirectableInterface
         $this->templatingHelper = $templatingHelper;
     }
 
-    /**
-     * @ParamConverter(name="data", converter="sidus_admin.entity")
-     */
-    public function __invoke(Request $request, $data): Response
+    public function __invoke(
+        Request $request,
+        #[ValueResolver(AdminEntityValueResolver::class)] $data
+    ): Response
     {
         $form = $this->formHelper->getForm($this->action, $request, $data);
 
